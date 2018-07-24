@@ -1,0 +1,1 @@
+$ComputerName | Get-IISWebsides | Where-Object {$_.Name -notlike "Default Web Site"} | Select "Server Name", "Name", "State", "Status" | Group-ByStatus

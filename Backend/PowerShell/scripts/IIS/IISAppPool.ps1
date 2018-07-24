@@ -1,0 +1,1 @@
+$ComputerName | Get-IISApplicationPool | Where-Object {$_.Name -notlike "SharePoint Web Services Root"} |Select "Server Name", "Name", "State", "Status" | Group-ByStatus
