@@ -49,8 +49,16 @@
             }
             catch
             {
-                Write-Error $_.Exception.Message
-                $State = "Exception getting state!"
+                #GetState method will always return exeption when called on FTP Website on IIS, it's  know bug. This if-else block is a workaround for that bug
+                if($_.Exception.Message -eq 'Exception calling "GetState" : ""')
+                {
+                    $State = "Unknown / FTP Website"
+                }
+                else
+                {
+                    Write-Error $_.Exception.Message
+                    $State = "Exception getting state!"
+                }
             }
 
             $Properties = @{"Server Name" = $ComputerName
@@ -76,6 +84,10 @@
             if ($Obj.State -eq "Started")
             {
                 $Obj.Status = "OK"
+            }
+            if ($Obj.State -eq "Unknown / FTP Website")
+            {
+                $Obj.Status = "Ok"
             }
 
             $ReportArray += $Obj
