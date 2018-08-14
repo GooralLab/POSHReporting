@@ -87,7 +87,7 @@
             }
             if ($Obj.State -eq "Unknown / FTP Website")
             {
-                $Obj.Status = "Ok"
+                $Obj.Status = "OK"
             }
 
             $ReportArray += $Obj
